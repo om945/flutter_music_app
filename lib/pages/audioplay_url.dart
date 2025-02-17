@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/playlist_provider.dart';
 import 'package:flutter_application_1/models/songs.dart';
 import 'package:flutter_application_1/pages/drawer.dart';
+import 'package:flutter_application_1/pages/playlist.dart';
 import 'package:flutter_application_1/pages/song_page.dart';
 import 'package:provider/provider.dart';
+
 
 class Audiopage extends StatefulWidget {
   const Audiopage({super.key});
@@ -16,6 +18,8 @@ class _AudioplayUrlState extends State<Audiopage> {
 
   late final dynamic playlistProvider;
   
+ 
+  
   @override
   void initState() {
     // TODO: implement initState
@@ -27,13 +31,34 @@ class _AudioplayUrlState extends State<Audiopage> {
   void goToSong(int songIndex){
     playlistProvider.currentSongIndex = songIndex;
 
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> SongPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> SongPage(
+      onSongAdd: (Songs song) {
+        // Add your onSongAdd logic here
+        return null;
+      }
+    )));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
+      bottomNavigationBar: BottomNavigationBar(
+      selectedItemColor: Theme.of(context).colorScheme.secondary,  
+      items:[ 
+      BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+      BottomNavigationBarItem(icon: Icon(Icons.playlist_play_sharp), 
+      label: "Playlist"
+      ),],
+      onTap: (int index){
+        if(index == 0){
+          return null;
+        }else{
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Playlist(
+          )));
+        }
+      },
+      ),
       appBar: AppBar(
         title: Text("Audio Player"),
       ),

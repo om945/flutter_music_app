@@ -11,8 +11,8 @@ class MyDrawer extends StatelessWidget {
       child: Column(
         children: [
           DrawerHeader(child: Center(
-            child: Icon(Icons.music_note,size: 45,
-            color: Theme.of(context).colorScheme.inversePrimary,),
+            child: Icon(Icons.music_note,size: 100,
+            color: Theme.of(context).colorScheme.secondary,),
           ),),
           Padding(
             padding: const EdgeInsets.only(left: 25,top: 25),

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/playlist_provider.dart';
+import 'package:flutter_application_1/models/songs.dart';
 import 'package:flutter_application_1/pages/theme_box.dart';
 import 'package:provider/provider.dart';
 
 class SongPage extends StatefulWidget {
-  const SongPage({super.key});
+  late final Function(Songs) onSongAdd;
+
+  SongPage({super.key, required this.onSongAdd});
 
   String formatTime(Duration duration){
     String twoDigitSecond = duration.inSeconds.remainder(60).toString();
@@ -14,6 +17,7 @@ class SongPage extends StatefulWidget {
 
   @override
   State<SongPage> createState() => _SongPageState();
+  
 }
 class _SongPageState extends State<SongPage> {
   Color _color = Colors.white;
@@ -35,25 +39,19 @@ class _SongPageState extends State<SongPage> {
         final currentSong = playlist[value.currentSongIndex ?? 0];
         //return scaffold UI
         return Scaffold(
+         
       backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        centerTitle: true,
+        title: Text("A L B U M"),
+      ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(25),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(onPressed: (){
-                      Navigator.pop(context);
-                    }, icon: Icon(Icons.arrow_back)),
-            
-                    Text("PlayList"),
-            
-                    IconButton(onPressed: (){}, icon: Icon(Icons.menu))
-                  ],
-                ),
                 SizedBox(height: 30),
                 //album artwork
                 NewBox(child: Column(
@@ -103,6 +101,16 @@ class _SongPageState extends State<SongPage> {
                         //start time and end time
                         Text(widget.formatTime(value.currentDuration)),
                         Icon(Icons.shuffle),
+                        GestureDetector(
+                          onTap: (){
+                            Songs song = Songs(songName: currentSong.songName, 
+                            artistName: currentSong.artistName, 
+                            songImage:currentSong.songImage, 
+                            audioPath:currentSong.audioPath);
+                            widget.onSongAdd(song);
+                          },
+                          child: Icon(Icons.playlist_play_sharp),
+                        ),
                         Icon(Icons.repeat),
                         Text(widget.formatTime(value.totalDuration)),
                       ],),

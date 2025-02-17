@@ -13,7 +13,10 @@ class Setting extends StatelessWidget {
         title: Text("Settings"),
       ),
       body: Container(
-        decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
+        decoration: BoxDecoration(color: Theme.of(context).brightness == Brightness.dark
+        ? Colors.black12
+        : Colors.white
+        ),
         padding: EdgeInsets.all(16),
         margin: EdgeInsets.all(10),
         child: Row(
