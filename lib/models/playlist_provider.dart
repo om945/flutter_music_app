@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/songs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PlaylistProvider extends ChangeNotifier {
   final List<Songs> _playlist = [
@@ -23,7 +26,7 @@ class PlaylistProvider extends ChangeNotifier {
     audioPath: "assets/audio/3.mp3"
     ),
   ];
-  final List<Songs> _playlist1 = [];
+  List<Songs> _playlist1 = [];
   //current song playing index
   int? _currentSongIndex;
   /*
@@ -37,8 +40,18 @@ class PlaylistProvider extends ChangeNotifier {
 
   //constructor
   PlaylistProvider(){
+    _loadPlaylist();
     listenToDuration();
     }
+  void _loadPlaylist() async {
+  final prefs = await SharedPreferences.getInstance();
+  final playlistJson = prefs.getStringList('playlist1');
+
+  if (playlistJson != null) {
+    _playlist1 = playlistJson.map((json) => Songs.fromJson(jsonDecode(json))).toList();
+    notifyListeners();
+  }
+}
 
     //initially not playing
   bool _isPlaying = false;
@@ -151,8 +164,12 @@ class PlaylistProvider extends ChangeNotifier {
     
     notifyListeners();
   }
-  void addSongToPlaylist(Songs song) {
+  void addSongToPlaylist(Songs song)  async{
     _playlist1.add(song);
     notifyListeners();
+     // Store the playlist in shared preferences
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setStringList('playlist1', _playlist1.map((
+    song) => jsonEncode(song.toJson())).toList());
   }
 }

@@ -29,21 +29,12 @@ class _SongPageState extends State<SongPage> {
       _color = _color == Colors.white ? Colors.red : Colors.white ;
     });
   }
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
   }
-  List<Songs> _songs = [];
-void _addSong(Songs song) {
-    setState(() {
-      _songs.add(song);
-    });
-    widget.onSongAdd(song);
-  }
-
-  
-
   @override
   Widget build(BuildContext context) {
     return Consumer<PlaylistProvider>(builder: (
@@ -109,24 +100,21 @@ void _addSong(Songs song) {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 30, 20, 15),
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                         //start time and end time
                         Text(widget.formatTime(playlistProvider.currentDuration)),
                         Icon(Icons.shuffle),
-                        GestureDetector(
-                          onTap: (){
-                             playlistProvider.addSongToPlaylist(currentSong);
-                          },
-                          child: Icon(Icons.playlist_play_sharp),
-                        ),
+                        IconButton(onPressed: (){
+                          playlistProvider.addSongToPlaylist(currentSong);
+                        }, 
+                        icon: Icon(Icons.playlist_play_sharp)),
                         Icon(Icons.repeat),
                         Text(widget.formatTime(playlistProvider.totalDuration)),
                       ],),
                     ),
-
                   //duration progress
                     SliderTheme(
                       data: SliderTheme.of(context).copyWith(
@@ -149,7 +137,7 @@ void _addSong(Songs song) {
                     )
                   ],
                 ),
-                SizedBox(height: 25,),
+                SizedBox(height: 15,),
 
                 Row(
                   children: [
