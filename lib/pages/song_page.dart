@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/playlist_provider.dart';
 import 'package:flutter_application_1/models/songs.dart';
+import 'package:flutter_application_1/pages/playlist.dart';
 import 'package:flutter_application_1/pages/theme_box.dart';
 import 'package:provider/provider.dart';
 
 class SongPage extends StatefulWidget {
   late final Function(Songs) onSongAdd;
 
-  SongPage({super.key, required this.onSongAdd});
+  SongPage({super.key});
 
   String formatTime(Duration duration){
     String twoDigitSecond = duration.inSeconds.remainder(60).toString();
@@ -20,6 +21,7 @@ class SongPage extends StatefulWidget {
   
 }
 class _SongPageState extends State<SongPage> {
+  
   Color _color = Colors.white;
 
   void changeColor(){
@@ -27,16 +29,29 @@ class _SongPageState extends State<SongPage> {
       _color = _color == Colors.white ? Colors.red : Colors.white ;
     });
   }
+  void initState() {
+    // TODO: implement initState
+    super.initState();
 
+  }
+  List<Songs> _songs = [];
+void _addSong(Songs song) {
+    setState(() {
+      _songs.add(song);
+    });
+    widget.onSongAdd(song);
+  }
+
+  
 
   @override
   Widget build(BuildContext context) {
     return Consumer<PlaylistProvider>(builder: (
-      context, value, child) {
+      context, playlistProvider, child) {
         //get playlist
-        final playlist = value.playlist;
+        // final playlist = playlistProvider.playlist;
         //get song index
-        final currentSong = playlist[value.currentSongIndex ?? 0];
+        final currentSong = playlistProvider.playlist[playlistProvider.currentSongIndex ?? 0];
         //return scaffold UI
         return Scaffold(
          
@@ -99,20 +114,16 @@ class _SongPageState extends State<SongPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                         //start time and end time
-                        Text(widget.formatTime(value.currentDuration)),
+                        Text(widget.formatTime(playlistProvider.currentDuration)),
                         Icon(Icons.shuffle),
                         GestureDetector(
                           onTap: (){
-                            Songs song = Songs(songName: currentSong.songName, 
-                            artistName: currentSong.artistName, 
-                            songImage:currentSong.songImage, 
-                            audioPath:currentSong.audioPath);
-                            widget.onSongAdd(song);
+                             playlistProvider.addSongToPlaylist(currentSong);
                           },
                           child: Icon(Icons.playlist_play_sharp),
                         ),
                         Icon(Icons.repeat),
-                        Text(widget.formatTime(value.totalDuration)),
+                        Text(widget.formatTime(playlistProvider.totalDuration)),
                       ],),
                     ),
 
@@ -123,8 +134,8 @@ class _SongPageState extends State<SongPage> {
                       ),
                       child: Slider(
                         min: 0,
-                        max: value.totalDuration.inSeconds.toDouble(),
-                        value: value.currentDuration.inSeconds.toDouble(), 
+                        max: playlistProvider.totalDuration.inSeconds.toDouble(),
+                        value: playlistProvider.currentDuration.inSeconds.toDouble(), 
                         activeColor: Colors.green,
                         onChanged: (double double){
                           //duraing when the user is sliding around
@@ -132,7 +143,7 @@ class _SongPageState extends State<SongPage> {
                         },
                         onChangeEnd: (double double) {
                           //duraing when the user is done sliding, go to position in song duration
-                          value.seekTo(Duration(seconds: double.toInt()));
+                          playlistProvider.seekTo(Duration(seconds: double.toInt()));
                         },
                         ),
                     )
@@ -145,7 +156,7 @@ class _SongPageState extends State<SongPage> {
                   //skip privious 
                   Expanded(
                     child: GestureDetector(
-                      onTap: value.playPreviousSong,
+                      onTap: playlistProvider.playPreviousSong,
                       child: NewBox(
                         child: Icon(Icons.skip_previous)),
                     ),
@@ -156,9 +167,9 @@ class _SongPageState extends State<SongPage> {
                   Expanded(
                     flex: 2,
                     child: GestureDetector(
-                      onTap: value.pauseORresume,
+                      onTap: playlistProvider.pauseORresume,
                       child: NewBox(
-                        child: Icon(value.playing
+                        child: Icon(playlistProvider.playing
                         ? Icons.pause
                         : Icons.play_arrow
                         )),
@@ -169,7 +180,7 @@ class _SongPageState extends State<SongPage> {
                   //skip forward
                   Expanded(
                     child: GestureDetector(
-                      onTap: value.playNextSong,
+                      onTap: playlistProvider.playNextSong,
                       child: NewBox(
                         child: Icon(Icons.skip_next)),
                     ),

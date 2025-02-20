@@ -23,6 +23,7 @@ class PlaylistProvider extends ChangeNotifier {
     audioPath: "assets/audio/3.mp3"
     ),
   ];
+  final List<Songs> _playlist1 = [];
   //current song playing index
   int? _currentSongIndex;
   /*
@@ -132,6 +133,7 @@ class PlaylistProvider extends ChangeNotifier {
   Getters
   */
   List<Songs> get playlist => _playlist;
+  List<Songs> get playlist1 => _playlist1;
   int? get currentSongIndex => _currentSongIndex;
   bool get playing => _isPlaying;
   Duration get currentDuration => _currentDuration;
@@ -147,6 +149,10 @@ class PlaylistProvider extends ChangeNotifier {
       play();// play the song at the new index
     }
     
+    notifyListeners();
+  }
+  void addSongToPlaylist(Songs song) {
+    _playlist1.add(song);
     notifyListeners();
   }
 }

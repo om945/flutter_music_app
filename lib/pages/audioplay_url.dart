@@ -31,12 +31,7 @@ class _AudioplayUrlState extends State<Audiopage> {
   void goToSong(int songIndex){
     playlistProvider.currentSongIndex = songIndex;
 
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> SongPage(
-      onSongAdd: (Songs song) {
-        // Add your onSongAdd logic here
-        return null;
-      }
-    )));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> SongPage()));
   }
 
   @override
@@ -54,7 +49,7 @@ class _AudioplayUrlState extends State<Audiopage> {
         if(index == 0){
           return null;
         }else{
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Playlist(
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Playlist(onSongAdd: (Songs ) { },
           )));
         }
       },
