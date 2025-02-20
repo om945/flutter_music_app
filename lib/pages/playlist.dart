@@ -27,6 +27,23 @@ class _PlaylistState extends State<Playlist> {
       context, playlistProvider, child) {
         final playlist1 = playlistProvider.playlist1;
         return Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 1,
+          selectedItemColor: Theme.of(context).colorScheme.secondary,  
+          items:[ 
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.playlist_play_sharp), 
+          label: "Playlist"
+          ),],
+          onTap: (int index){
+            if(index == 1){
+              return null;
+            }else{
+              Navigator.pop(context);
+            }
+          },
+          ),
           body: Column(
             children: [
               SizedBox(height: 20),
@@ -40,6 +57,11 @@ class _PlaylistState extends State<Playlist> {
                     return ListTile(
                       title: Text(song.songName),
                       subtitle: Text(song.artistName),
+                      trailing: IconButton(
+                      onPressed: (){
+                        playlistProvider.removeSongFromPlaylist(index);
+                      }, 
+                      icon: Icon(Icons.delete)),
                     );
                   },
                 ),

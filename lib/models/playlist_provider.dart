@@ -169,7 +169,18 @@ class PlaylistProvider extends ChangeNotifier {
     notifyListeners();
      // Store the playlist in shared preferences
   final prefs = await SharedPreferences.getInstance();
-  prefs.setStringList('playlist1', _playlist1.map((
-    song) => jsonEncode(song.toJson())).toList());
+  prefs.setStringList('playlist1', _playlist1.map(
+    (song) => jsonEncode(song.toJson())).toList());
+  }
+  void removeSongFromPlaylist(int index) async {
+    if (index >= 0 && index < _playlist1.length) {
+      _playlist1.removeAt(index);
+      notifyListeners();
+  
+      // Update the playlist in shared preferences
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setStringList('playlist1', _playlist1.map(
+        (song) => jsonEncode(song.toJson())).toList());
+    }
   }
 }
