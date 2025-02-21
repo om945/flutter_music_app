@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/playlist_provider.dart';
 import 'package:flutter_application_1/pages/audioplay_url.dart';
-import 'package:flutter_application_1/pages/themepage.dart/light_mode.dart';
 import 'package:flutter_application_1/pages/themepage.dart/theme_proivder.dart';
 import 'package:provider/provider.dart';
 

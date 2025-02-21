@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/playlist_provider.dart';
 import 'package:flutter_application_1/models/songs.dart';
+import 'package:flutter_application_1/pages/currentplaying_song.dart';
 import 'package:flutter_application_1/pages/drawer.dart';
 import 'package:flutter_application_1/pages/playlist.dart';
 import 'package:flutter_application_1/pages/song_page.dart';
@@ -75,6 +76,15 @@ class _AudioplayUrlState extends State<Audiopage> {
         );
       }
       ,),
+      floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: 
+        (context) => CurrentplayingSong()));
+      },
+      child: Icon(Icons.play_arrow,
+      size: 30,
+      color: Theme.of(context).colorScheme.secondary,
+      ),),
     );
   }
 }
