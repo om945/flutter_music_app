@@ -18,9 +18,6 @@ class Audiopage extends StatefulWidget {
 class _AudioplayUrlState extends State<Audiopage> {
 
   late final dynamic playlistProvider;
-  
- 
-  
   @override
   void initState() {
     // TODO: implement initState
@@ -56,7 +53,7 @@ class _AudioplayUrlState extends State<Audiopage> {
       },
       ),
       appBar: AppBar(
-        title: Text("Audio Player"),
+        title: Text("My  A u d i o"),
       ),
       drawer: MyDrawer(),
       body: Consumer<PlaylistProvider>(builder: (context, value, child) {
