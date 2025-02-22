@@ -18,7 +18,7 @@ class Songs{
       artistName: json['artistName'],
       songImage: json['songImage'],
       audioPath: json['audioPath'],
-      index: json['index'],
+      
     );
   }
 
@@ -28,7 +28,7 @@ class Songs{
       'artistName': artistName,
       'songImage': songImage,
       'audioPath': audioPath,
-      'index': index
+      
     };
   }
 
