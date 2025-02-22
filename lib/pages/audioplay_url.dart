@@ -36,22 +36,6 @@ class _AudioplayUrlState extends State<Audiopage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      bottomNavigationBar: BottomNavigationBar(
-      selectedItemColor: Theme.of(context).colorScheme.secondary,  
-      items:[ 
-      BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-      BottomNavigationBarItem(icon: Icon(Icons.playlist_play_sharp), 
-      label: "Playlist"
-      ),],
-      onTap: (int index){
-        if(index == 0){
-          return null;
-        }else{
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Playlist(onSongAdd: (Songs ) { },
-          )));
-        }
-      },
-      ),
       appBar: AppBar(
         title: Text("My  A u d i o"),
       ),

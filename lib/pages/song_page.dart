@@ -20,14 +20,7 @@ class SongPage extends StatefulWidget {
   
 }
 class _SongPageState extends State<SongPage> {
-  
-  Color _color = Colors.white;
 
-  void changeColor(){
-    setState(() {
-      _color = _color == Colors.white ? Colors.red : Colors.white ;
-    });
-  }
   @override
   void initState() {
     // TODO: implement initState
@@ -95,10 +88,9 @@ class _SongPageState extends State<SongPage> {
                               ),
                               SizedBox(width: 50,),
                               //heart icon
-                              IconButton(onPressed: (){
-                              changeColor();
-                              }, icon: Icon(Icons.favorite, 
-                              color: _color,
+                              IconButton(onPressed: (){}, 
+                              icon: Icon(Icons.favorite, 
+                              color: Colors.red,
                               ))
                             ],
                           ),
@@ -118,27 +110,32 @@ class _SongPageState extends State<SongPage> {
                           Text(widget.formatTime(
                             playlistProvider.currentDuration
                             )),
-
+                            GestureDetector(
+                              onTap: () {
+                                playlistProvider.backward5Seconds();
+                              },
+                              child: Icon(Icons.replay_5,
+                              size: 30,
+                              ),
+                            ),
                           GestureDetector(
                             onTap: () {
                               playlistProvider.toggleShuffle();
                             },
                             child: Icon(playlistProvider.shuffle
                             ? Icons.shuffle
-                            : Icons. keyboard_double_arrow_right_sharp
+                            : Icons. repeat
                             )
                             ),
-
-                          GestureDetector(
-                            onTap: (){
-                              playlistProvider.addSongToPlaylist(currentSong);
-                            },
-                            child: Icon(playlistProvider.playlist1.contains(currentSong)
-                            ? Icons.playlist_add_check
-                            : Icons.playlist_add
+                            GestureDetector(
+                              onTap: () {
+                                playlistProvider.forward5Seconds();
+                              },
+                              child: Icon(Icons.forward_5,
+                              size: 30,
+                              ),
                             ),
-                          ),
-                          // Icon(Icons.repeat),
+                          
                           Text(widget.formatTime(playlistProvider.totalDuration)),
                         ],),
                       ),
@@ -150,9 +147,11 @@ class _SongPageState extends State<SongPage> {
                         child: Slider(
                           min: 0,
                           max: playlistProvider.totalDuration.inSeconds.toDouble(),
-                          value: playlistProvider.currentDuration.inSeconds.toDouble(), 
+                          value: playlistProvider.currentDuration.inSeconds.
+                          toDouble().clamp(0, playlistProvider.totalDuration.
+                          inSeconds.toDouble()),
                           activeColor: Colors.green,
-                          onChanged: (double double){
+                          onChanged: (double value){
                             //duraing when the user is sliding around
                           },
                           onChangeEnd: (double double) {
@@ -208,4 +207,5 @@ class _SongPageState extends State<SongPage> {
     );
   } );
   }
+  
 }

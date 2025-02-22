@@ -1,8 +1,7 @@
-import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/songs.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'dart:math';
 
 class PlaylistProvider extends ChangeNotifier {
@@ -338,7 +337,6 @@ class PlaylistProvider extends ChangeNotifier {
     audioPath: "assets/audio/Zaalima.mp3"
     ),
   ];
-  List<Songs> _playlist1 = [];
   //current song playing index
   int? _currentSongIndex;
   /*
@@ -352,27 +350,18 @@ class PlaylistProvider extends ChangeNotifier {
 
   //constructor
   PlaylistProvider(){
-    _loadPlaylist();
     listenToDuration();
     }
-  void _loadPlaylist() async {
-  final prefs = await SharedPreferences.getInstance();
-  final playlistJson = prefs.getStringList('playlist1');
-
-  if (playlistJson != null) {
-    _playlist1 = playlistJson.map((json) => Songs.fromJson(jsonDecode(json))).toList();
-    notifyListeners();
-  }
-}
+  
 
     //initially not playing
   bool _isPlaying = false;
   bool _isShuffle = false;
+  bool _isRepeating = false;
 
   // play audio
 
-  void play(PlaylistProvider playlistProvider) async{
-     print('Playing song at index: ${playlistProvider.currentSongIndex}');
+  void play() async{
     final String path = _playlist[_currentSongIndex ?? 0].audioPath.replaceAll('assets/', '');
     await _audioPlayer.stop();
     await _audioPlayer.play(AssetSource(path));
@@ -430,7 +419,7 @@ class PlaylistProvider extends ChangeNotifier {
       }
     }
     }
-    play(PlaylistProvider());
+    play();
   }
 
   // play previous song
@@ -441,7 +430,7 @@ class PlaylistProvider extends ChangeNotifier {
     }
     // if it's within 2 sec of song go to previous song
     else{
-      if(_currentSongIndex != 0){
+      if(_currentSongIndex != 0 && _currentSongIndex != null){
         currentSongIndex=_currentSongIndex! - 1;
       }else{
         // if it's the first song loop back to the last
@@ -471,7 +460,6 @@ class PlaylistProvider extends ChangeNotifier {
   Getters
   */
   List<Songs> get playlist => _playlist;
-  List<Songs> get playlist1 => _playlist1;
   int? get currentSongIndex => _currentSongIndex;
   bool get playing => _isPlaying;
   Duration get currentDuration => _currentDuration;
@@ -485,37 +473,27 @@ class PlaylistProvider extends ChangeNotifier {
     //update current song index
     _currentSongIndex = newIndex;
     if(newIndex != null){
-      play(PlaylistProvider());// play the song at the new index
+      play();// play the song at the new index
     }
     
     notifyListeners();
   }
-  void addSongToPlaylist(Songs currentSongIndex)  async{
-    _playlist1.add(currentSongIndex);
+  
+   void toggleRepeat() {
+    _isRepeating = !_isRepeating;
     notifyListeners();
-     // Store the playlist in shared preferences
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setStringList('playlist1', _playlist1.map(
-    (song) => jsonEncode(song.toJson())).toList());
   }
-  void removeSongFromPlaylist(int index) async {
-    if (index >= 0 && index < _playlist1.length) {
-      _playlist1.removeAt(index);
-      notifyListeners();
-  
-      // Update the playlist in shared preferences
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setStringList('playlist1', _playlist1.map(
-        (song) => jsonEncode(song.toJson())).toList());
-    }
-  }
-  void playSongAtIndex(int index) {
-    if (index >= 0 && index < _playlist.length) {
-      _currentSongIndex = index;
-      play(PlaylistProvider());
-    } else {
-      print('Invalid index');
+  void forward5Seconds() {
+    int newPosition = _currentDuration.inSeconds + 5;
+    if (newPosition < _totalDuration.inSeconds) {
+      _audioPlayer.seek(Duration(seconds: newPosition));
     }
   }
   
+  void backward5Seconds() {
+    int newPosition = _currentDuration.inSeconds - 5;
+    if (newPosition >= 0) {
+      _audioPlayer.seek(Duration(seconds: newPosition));
+    }
+  }
 }
