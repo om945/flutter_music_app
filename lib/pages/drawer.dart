@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/about_page.dart';
 import 'package:flutter_application_1/pages/setting.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -33,6 +34,18 @@ class MyDrawer extends StatelessWidget {
                       Navigator.pop(context);
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => Setting()));
+                    }         
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 25,top: 25),
+            child: ListTile(
+                    title: Text("About"),
+                    leading: Icon(Icons.info),   
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => AboutPage()));
                     }         
             ),
           )

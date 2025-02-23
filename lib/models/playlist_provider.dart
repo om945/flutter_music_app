@@ -1,7 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/songs.dart';
-
 import 'dart:math';
 
 class PlaylistProvider extends ChangeNotifier {
@@ -83,6 +82,12 @@ class PlaylistProvider extends ChangeNotifier {
     artistName: "Lady Gara & Bruno Mars", 
     songImage: "assets/images/bg_img3.jpg", 
     audioPath: "assets/audio/Die With A Smile.mp3"
+    ),
+    Songs(
+    songName: "Dil Ibaadat", 
+    artistName: "Kk", 
+    songImage: "assets/images/bg_img3.jpg", 
+    audioPath: "assets/audio/Dil Ibaadat.mp3"
     ),
     Songs(
     songName: "Dope Shope", 
@@ -235,6 +240,12 @@ class PlaylistProvider extends ChangeNotifier {
     audioPath: "assets/audio/Rani Majhya Malyamandi.mp3"
     ),
     Songs(
+    songName: "Run Free Original Mix", 
+    artistName: "Deep Chills", 
+    songImage: "assets/images/bg_img.jpg", 
+    audioPath: "assets/audio/Run Free Original Mix.mp3"
+    ),
+    Songs(
     songName: "Dandelions", 
     artistName: "Ruth B", 
     songImage: "assets/images/bg_img3.jpg", 
@@ -317,6 +328,12 @@ class PlaylistProvider extends ChangeNotifier {
     artistName: "Vishal Dadlani", 
     songImage: "assets/images/bg_img3.jpg", 
     audioPath: "assets/audio/Ud-daa Punjab.mp3"
+    ),
+    Songs(
+    songName: "WINTER 24 AMV Anime Music Video", 
+    artistName: "Ronen Korus", 
+    songImage: "assets/images/bg_img.jpg", 
+    audioPath: "assets/audio/WINTER 24 AMV Anime Music Video.mp3"
     ),
     Songs(
     songName: "Ye Go Ye Ye Maina", 

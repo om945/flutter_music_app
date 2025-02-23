@@ -3,7 +3,6 @@ import 'package:flutter_application_1/models/playlist_provider.dart';
 import 'package:flutter_application_1/models/songs.dart';
 import 'package:flutter_application_1/pages/currentplaying_song.dart';
 import 'package:flutter_application_1/pages/drawer.dart';
-import 'package:flutter_application_1/pages/playlist.dart';
 import 'package:flutter_application_1/pages/song_page.dart';
 import 'package:provider/provider.dart';
 
@@ -20,9 +19,7 @@ class _AudioplayUrlState extends State<Audiopage> {
   late final dynamic playlistProvider;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     playlistProvider = Provider.of<PlaylistProvider>(context,listen: false);
   }
 
@@ -35,6 +32,7 @@ class _AudioplayUrlState extends State<Audiopage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Text("My  A u d i o"),
