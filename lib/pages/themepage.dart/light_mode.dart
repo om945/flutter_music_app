@@ -5,6 +5,7 @@ ThemeData LightMode = ThemeData(
   iconTheme: IconThemeData(color: Colors.grey.shade900),
   fontFamily: GoogleFonts.nunitoSans().fontFamily,
   colorScheme: ColorScheme.light(
+    // ignore: deprecated_member_use
     background:  Colors.grey.shade200,
     primary: Colors.grey.shade200,
     secondary: Colors.grey.shade900,

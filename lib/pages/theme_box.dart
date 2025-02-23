@@ -8,11 +8,11 @@ class NewBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     // is dark mode
     bool isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
     return Container(
       decoration:  BoxDecoration(color: Theme.of(context)
+      // ignore: deprecated_member_use
       .colorScheme.background,
       borderRadius: BorderRadius.circular(10),
       boxShadow: [BoxShadow(

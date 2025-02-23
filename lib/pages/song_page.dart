@@ -23,7 +23,6 @@ class _SongPageState extends State<SongPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
   }
@@ -38,11 +37,14 @@ class _SongPageState extends State<SongPage> {
         //return scaffold UI
         return Scaffold(
 
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        // ignore: deprecated_member_use
         backgroundColor: Theme.of(context).colorScheme.background,
         centerTitle: true,
         title: Text("A L B U M"),
+        forceMaterialTransparency: true,
         ),
         body: SingleChildScrollView(
           child: SafeArea(
