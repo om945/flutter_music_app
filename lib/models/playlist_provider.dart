@@ -54,6 +54,12 @@ class PlaylistProvider extends ChangeNotifier {
     audioPath: "assets/audio/Brown Rang.mp3"
     ),
     Songs(
+    songName: "Character Dheela", 
+    artistName: "Neeraj Shridhar", 
+    songImage: "assets/images/bg_img.jpg", 
+    audioPath: "assets/audio/Character Dheela.mp3"
+    ),
+    Songs(
     songName: "Closer", 
     artistName: "The Chainsmokers", 
     songImage: "assets/images/bg_img3.jpg", 
@@ -76,6 +82,12 @@ class PlaylistProvider extends ChangeNotifier {
     artistName: "Indila", 
     songImage: "assets/images/bg_img2.jpg", 
     audioPath: "assets/audio/Dernire danse.mp3"
+    ),
+    Songs(
+    songName: "Dhak Dhak", 
+    artistName: "Aanchal tyagi", 
+    songImage: "assets/images/bg_img.jpg", 
+    audioPath: "assets/audio/Dhak Dhak.mp3"
     ),
     Songs(
     songName: "Die With A Smile", 
@@ -198,6 +210,12 @@ class PlaylistProvider extends ChangeNotifier {
     audioPath: "assets/audio/MIDDLE OF THE NIGHT.mp3"
     ),
     Songs(
+    songName: "Money Rain Phonk Remix", 
+    artistName: "VTORNIK", 
+    songImage: "assets/images/bg_img2.jpg", 
+    audioPath: "assets/audio/Money Rain Phonk Remix.mp3"
+    ),
+    Songs(
     songName: "Murder In My Mind", 
     artistName: "Kordhell", 
     songImage: "assets/images/bg_img2.jpg", 
@@ -292,6 +310,12 @@ class PlaylistProvider extends ChangeNotifier {
     artistName: "The Neighbourhood", 
     songImage: "assets/images/bg_img3.jpg", 
     audioPath: "assets/audio/Sweater Weather Sped Up.mp3"
+    ),
+    Songs(
+    songName: "Taambdi Chaamdi", 
+    artistName: "ndian DJ Kratex and Indian rapper Shreyas", 
+    songImage: "assets/images/bg_img.jpg", 
+    audioPath: "assets/audio/Taambdi Chaamdi.mp3"
     ),
     Songs(
     songName: "The Nights", 

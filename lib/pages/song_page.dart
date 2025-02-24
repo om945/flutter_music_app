@@ -36,7 +36,6 @@ class _SongPageState extends State<SongPage> {
         final currentSong = playlistProvider.playlist[playlistProvider.currentSongIndex ?? 0];
         //return scaffold UI
         return Scaffold(
-
       // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -44,7 +43,6 @@ class _SongPageState extends State<SongPage> {
         backgroundColor: Theme.of(context).colorScheme.background,
         centerTitle: true,
         title: Text("A L B U M"),
-        forceMaterialTransparency: true,
         ),
         body: SingleChildScrollView(
           child: SafeArea(
@@ -60,7 +58,6 @@ class _SongPageState extends State<SongPage> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(currentSong.songImage)),
-          
                         //song name and artist name
                         Padding(
                           padding: const EdgeInsets.all(10.0),
